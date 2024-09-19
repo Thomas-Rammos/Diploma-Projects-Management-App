@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student Form</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <style>
+        .required::before {
+            content: "* ";
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="my-4">Edit Student Profile</h1>
+    <form th:action="@{/student/saveStudent}" th:object="${student}" method="post" id="studentForm">
+        <div class="form-group">
+            <label for="fullName" class="required">Full name:</label>
+            <input type="text" class="form-control" id="fullName" name="fullName" th:value="${student.fullName}" required/>
+        </div>
+        <div class="form-group">
+            <label for="yearOfStudies" class="required">Years of Studies:</label>
+            <input type="text" class="form-control" id="yearOfStudies" name="yearOfStudies" th:value="${student.yearOfStudies}" data-toggle="tooltip" data-placement="right" title="Must be bigger than 0"/>
+        </div>
+        <div class="form-group">
+            <label for="currentAverageGrade" class="required">Current Average Grade:</label>
+            <input type="text" class="form-control" id="currentAverageGrade" name="currentAverageGrade" th:value="${student.currentAverageGrade}" data-toggle="tooltip" data-placement="right" title="Must be between 5.0 and 10.0"/>
+        </div>
+        <div class="form-group">
+            <label for="remainingCourses" class="required">Remaining Courses:</label>
+            <input type="text" class="form-control" id="remainingCourses" name="remainingCourses" th:value="${student.remainingCourses}" data-toggle="tooltip" data-placement="right" title="Must be bigger than 0"/>
+        </div>
+        <div class="form-group">
+            <label for="AM">AM:</label>
+            <input type="text" class="form-control" id="AM" name="AM" th:value="${student.AM}"/>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="text" class="form-control" id="email" name="email" th:value="${student.email}"/>
+        </div>
+        <div class="form-group">
+            <label for="age">Age:</label>
+            <input type="text" class="form-control" id="age" name="age" th:value="${student.age}"/>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a th:href="@{/student/homepage}" class="btn btn-primary">Return</a>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+
+	$(document).ready(function() {
+	    $('[data-toggle="tooltip"]').tooltip();
+	
+	    $("#currentAverageGrade").focus(function() {
+	        $(this).attr("title", "Must be between 5.0 and 10.0");
+	        $(this).tooltip("show");
+	    });
+	
+	    $("#yearOfStudies").focus(function() {
+	        $(this).attr("title", "Must be bigger than 0");
+	        $(this).tooltip("show");
+	    });
+	
+	    $("#remainingCourses").focus(function() {
+	        $(this).attr("title", "Must be bigger or equal to 0");
+	        $(this).tooltip("show");
+	    });
+	
+	    $("#studentForm").submit(function(event) {
+	        var yearOfStudies = $("#yearOfStudies").val();
+	        var currentAverageGrade = $("#currentAverageGrade").val();
+	        var remainingCourses = $("#remainingCourses").val();
+	        var age = $("#age").val();
+	        var AM = $("#AM").val();
+	
+	        if (yearOfStudies == 0 || currentAverageGrade == 0 || remainingCourses < 0) {
+	            event.preventDefault();
+	            alert("Fields 'Years of Studies', 'Current Average Grade', and 'Remaining Courses' have invalid values.");
+	        }
+	
+	        if (currentAverageGrade < 5.0 || currentAverageGrade > 10.0) {
+	            event.preventDefault();
+	            alert("Current Average Grade must be between 5.0 and 10.0.");
+	        }
+	
+	        if (age === "") {
+	            $("#age").val(0);
+	        }
+	
+	        if (AM === "") {
+	            $("#AM").val(0);
+	        }
+	    });
+	});
+</script>
+
+</body>
+</html>

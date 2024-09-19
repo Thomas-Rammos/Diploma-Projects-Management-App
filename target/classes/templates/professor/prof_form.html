@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Professor Form</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <style>
+	    .required::before {
+	        content: "* ";
+	        color: red;
+	    }
+	</style>
+</head>
+<body>
+<div class="container">
+    <h1 class="my-4">Edit Professor Profile</h1>
+    <form th:action="@{/professor/saveProf}" th:object="${professor}" method="post" id="professorForm">
+        <div class="form-group">
+            <label for="fullName" class="required">Full name:</label>
+            <input type="text" class="form-control" id="fullName" name="fullName" th:value="${professor.fullName}" required/>
+        </div>
+        <div class="form-group">
+            <label for="specialty" class="required">Specialty:</label>
+            <input type="text" class="form-control" id="specialty" name="specialty" th:value="${professor.specialty}" required/>
+        </div>
+        <div class="form-group">
+	        <label for="AM">AM:</label>
+	        <input type="text" class="form-control" id="AM" name="AM" th:value="${professor.AM}"/>
+	    </div>
+	    <div class="form-group">
+        	<label for="email">Email:</label>
+        	<input type="text" class="form-control" id="email" name="email" th:value="${professor.email}"/>
+        </div>
+        <div class="form-group">
+    		<label for="age">Age:</label>
+    		<input type="text" class="form-control" id="age" name="age" th:value="${professor.age}"/>
+    	</div>
+    	<div class="form-group">
+			<label for="yearsOfTeaching">Years of Teaching:</label>
+			<input type="text" class="form-control" id="yearsOfTeaching" name="yearsOfTeaching" th:value="${professor.yearsOfTeaching}"/>
+		</div>
+    	
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a th:href="@{/professor/homepage}" class="btn btn-primary">Return</a>
+    </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $("#professorForm").submit(function(event) {
+            var AM = $("#AM").val();
+            var age = $("#age").val();
+            var yearsOfTeaching = $("#yearsOfTeaching").val();
+
+            if (AM === "") {
+                $("#AM").val(0);
+            }
+
+            if (age === "") {
+                $("#age").val(0);
+            }
+
+            if (yearsOfTeaching === "") {
+                $("#yearsOfTeaching").val(0);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
+</body>
+</html>

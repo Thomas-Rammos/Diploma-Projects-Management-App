@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student Homepage</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <style>
+    .delete-account-btn {
+        border: none;
+        background: none;
+    }
+    .delete-account-btn:hover {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+    .logout-btn {
+        border: 1px solid grey;
+        color: black;
+        background-color: white;
+    }
+    .logout-btn:hover {
+        color: white;
+        background-color: grey;
+    }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Student Portal</a>
+        	<div>
+        		<span class="navbar-text">
+					Logged in as: <b th:text="${#authentication.name}"></b> | Role: <b th:text="${#authentication.authorities[0].authority}"></b>
+				</span>
+			</div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/student/profile">Edit Profile <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/student/subjects">Available Thesis Subjects</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/student/myThesis">myDiploma</a>
+                </li>
+                <li class="nav-item">
+                	<a class="nav-link" href="/student/applications">myApplications</a>
+                </li>
+            </ul>
+        </div>
+        <form action="/student/deleteAccount" method="post" onsubmit="return confirm('Are you sure you want to delete your account?')">
+        	<button type="submit" class="delete-account-btn">Delete My Account</button>
+        </form>
+    </nav>
+    <div class="container">
+        <h1>Welcome to your Homepage Student!</h1>
+        <p>Full Name: <span th:text="${student.fullName}"></span></p>
+        <p>Year of Studies: <span th:text="${student.yearOfStudies}"></span></p>
+        <p>Current Average Grade: <span th:text="${student.currentAverageGrade}"></span></p>
+        <p>Remaining Courses: <span th:text="${student.remainingCourses}"></span></p>
+        <p>Email: <span th:text="${student.email}"></span></p>
+        <p>Age: <span th:text="${student.age}"></span></p>
+        <p>AM: <span th:text="${student.AM}"></span></p>
+        
+        <form action="/logout" method="post">
+            <button type="submit" class="btn logout-btn">Logout</button>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

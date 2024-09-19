@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thesis Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#applyThesis").click(function(event) {
+                var thesisExists = [[${thesis != null}]];
+                if (thesisExists === true) {
+                    event.preventDefault();
+                    alert("You have already a thesis");
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Thesis Details</h1>
+        <div class="card mt-4" th:if="${thesis != null}">
+            <div class="card-body">
+            	<p class="card-text">Supervisor: 
+            		<a th:href="@{/student/moreDetails(subjectId=${thesis.subject.getId()},supervisorId=${thesis.supervisor.getId()})}">
+            			<span th:text="${thesis.supervisor.getFullName}"></span>
+            		</a>
+            	</p>
+            	<p class="card-text">Subject: 
+            		<a th:href="@{/student/moreDetails(subjectId=${thesis.subject.getId()}, supervisorId=${0})}">
+            			<span th:text="${thesis.subject.getTitle}"></span>
+            		</a>
+            	</p>
+            	<p class="card-text">Implementation Grade: <span th:text="${thesis.implementationGrade}"></span></p>
+                <p class="card-text">Report Grade: <span th:text="${thesis.reportGrade}"></span></p>
+                <p class="card-text">Presentation Grade: <span th:text="${thesis.presentationGrade}"></span></p>
+                <p class="card-text">Total Grade: <span th:text="${0.15*thesis.presentationGrade+0.15*thesis.reportGrade+0.7*thesis.implementationGrade}"></span></p>
+            </div>
+        </div>
+        <a href="/student/homepage" class="btn btn-secondary mt-4">Return</a>
+        <a id="applyThesis" href="/student/subjects" class="btn btn-secondary mt-4">Go to apply a Thesis</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

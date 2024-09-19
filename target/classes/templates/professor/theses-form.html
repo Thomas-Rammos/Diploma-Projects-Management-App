@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thesis Grade Form</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <h1 class="my-4">Edit Grades </h1>
+    <form th:action="@{/professor/saveGrades}" th:object"${thesis}" method="post">
+    <input type="hidden" id="id" name="id" th:value="${thesis.id}" />
+    <input type="hidden" id="supervisor_id" name="supervisor_id" th:value="${thesis.supervisor.id}" />
+    <input type="hidden" id="subject_id" name="subject_id" th:value="${thesis.subject.id}" />
+    <input type="hidden" id="student_id" name="student_id" th:value="${thesis.student.id}" />
+        <div class="form-group">
+            <label for="implementationGrade">Implementation Grade:</label>
+            <input type="text" class="form-control" id="implementationGrade" name="implementationGrade" th:value="${thesis.implementationGrade}" required/>
+        </div>
+        <div class="form-group">
+            <label for="reportGrade">Report Grade:</label>
+            <input type="text" class="form-control" id="reportGrade" name="reportGrade" th:value="${thesis.reportGrade}" required/>
+        </div>
+        <div class="form-group">
+	        <label for="presentationGrade">Presentation Grade:</label>
+	        <input type="text" class="form-control" id="presentationGrade" name="presentationGrade" th:value="${thesis.presentationGrade}" required/>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a th:href="@{/professor/theses}" class="btn btn-primary">Return</a>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Subject or Professor Information</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <h1 class="my-4">Information</h1>
+    
+    <div th:if="${subject != null}">
+        <h2>Subject</h2>
+        <p><strong>Title:</strong> <span th:text="${subject.title}"></span></p>
+        <p><strong>Objectives:</strong> <span th:text="${subject.objectives}"></span></p>
+        <p><strong>Total Months:</strong> <span th:text="${subject.totalMonths}"></span></p>
+        <p><strong>Supervisor:</strong> <span th:text="${subject.supervisor.fullName}"></span></p>
+        <p><strong>Availability:</strong> <span th:text="${subject.availability}"></span></p>
+        <a th:href="@{/professor/showFormForUpdateSubject(subjectId=${subject.id})}" class="btn btn-sm btn-outline-primary">Edit Subject</a>
+    </div>
+    
+    <div th:if="${student != null}">
+        <h2>Professor</h2>
+        <p><strong>Full Name:</strong> <span th:text="${student.fullName}"></span></p>
+        <p><strong>Year of Studies:</strong> <span th:text="${student.yearOfStudies}"></span></p>
+        <p><strong>Current Average Grade:</strong> <span th:text="${student.currentAverageGrade}"></span></p>
+        <p><strong>Remaining Courses:</strong> <span th:text="${student.remainingCourses}"></span></p>
+        <p><strong>Email:</strong> <span th:text="${student.email}"></span></p>
+        <p><strong>AM:</strong> <span th:text="${student.AM}"></span></p>
+        <p><strong>Age:</strong> <span th:text="${student.age}"></span></p>
+    </div>
+    
+    <a href="/professor/theses" class="btn btn-primary">Return</a>
+</div>
+</body>
+</html>
