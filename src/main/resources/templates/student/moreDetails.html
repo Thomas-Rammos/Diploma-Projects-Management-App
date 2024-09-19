@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Subject or Professor Information</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <h1 class="my-4">Information</h1>
+    
+    <div th:if="${subject != null}">
+        <h2>Subject</h2>
+        <p><strong>Title:</strong> <span th:text="${subject.title}"></span></p>
+        <p><strong>Objectives:</strong> <span th:text="${subject.objectives}"></span></p>
+        <p><strong>Total Months:</strong> <span th:text="${subject.totalMonths}"></span></p>
+        <p><strong>Supervisor:</strong> <span th:text="${subject.supervisor.fullName}"></span></p>
+        <p><strong>Availability:</strong> <span th:text="${subject.availability}"></span></p>
+    </div>
+    
+    <div th:if="${professor != null}">
+        <h2>Professor</h2>
+        <p><strong>Full Name:</strong> <span th:text="${professor.fullName}"></span></p>
+        <p><strong>Specialty:</strong> <span th:text="${professor.specialty}"></span></p>
+        <p><strong>Years of Teaching:</strong> <span th:text="${professor.yearsOfTeaching}"></span></p>
+        <p><strong>Email:</strong> <span th:text="${professor.email}"></span></p>
+        <p><strong>AM:</strong> <span th:text="${professor.AM}"></span></p>
+        <p><strong>Age:</strong> <span th:text="${professor.age}"></span></p>
+    </div>
+    
+    <a href="/student/subjects" class="btn btn-primary">Return</a>
+</div>
+</body>
+</html>

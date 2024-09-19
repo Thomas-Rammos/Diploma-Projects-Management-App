@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+
+    <!-- Set the Character set for the page -->
+    <meta charset="utf-8">
+
+    <!-- Let the page adapt to client device -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Link to external resource (css, search, etc.) -->
+    <!-- Link to Bootstrap CSS in this case -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+          crossorigin="anonymous">
+
+    <title>Applications List</title>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h3>Applications List</h3>
+    <h4 th:text="${applications[0].getSubject.getTitle}"></h4> <!-- Display the subject title -->
+
+    <hr>
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Student Name</th>
+                <th>Years of Studies</th>
+                <th>Average Grade</th>
+                <th>Remaining Courses</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <tr th:each="tempApplication : ${applications}">
+                <td th:text="${tempApplication.getStudent.getFullName}" />    
+                <td th:text="${tempApplication.getStudent.getYearOfStudies}" />    
+                <td th:text="${tempApplication.getStudent.getCurrentAverageGrade}" />    
+                <td th:text="${tempApplication.getStudent.getRemainingCourses}" />    
+            </tr>
+        </tbody>        
+    </table>
+
+    <div th:if="${!#lists.isEmpty(applications)}" class="mt-3 mb-3">
+        <form th:action="@{/professor/assigned}" method="POST">
+            <select id="strategy" onchange="updateStrategyType()">
+                <option value="">Select Strategy</option>
+                <option value="Random">Random Choice</option>
+                <option value="BestAvgGrade">Best Average Grade Choice</option>
+                <option value="FewestCourses">Fewest Remaining Courses Choice</option>
+                <option value="Threshold">Threshold Choice</option>
+            </select>
+            <input type="hidden" name="subjectId" th:value="${applications[0].getSubject.getId()}"/>
+            <input type="hidden" id="strategyType" name="strategyType" value=""/>
+            <div id="thresholdInputs" style="display: none;">
+	            <label for="threshold1">Better Grade than:</label>
+	            <input type="number" id="threshold1" name="threshold1" step="0.01">
+	            <br>
+	            <label for="threshold2">Less Remaining Courses than:</label>
+	            <input type="number" id="threshold2" name="threshold2" min="0">
+	            <br>
+	        </div>
+            <button type="submit" class="btn btn-primary">Assign</button>
+        </form>
+    </div>
+
+    <script>
+    function updateStrategyType() {
+        var strategy = document.getElementById('strategy').value;
+        document.getElementById('strategyType').value = strategy;
+        if (strategy === "Threshold") {
+            document.getElementById('thresholdInputs').style.display = "block";
+        } else {
+            document.getElementById('thresholdInputs').style.display = "none";
+            document.getElementById('threshold1').value = 0;
+            document.getElementById('threshold2').value = 0;
+        }
+    }
+
+    </script>
+
+    <a th:href="@{/professor/subjects}" class="btn btn-primary">Return</a>
+</div>
+
+    
+</body>
+</html>

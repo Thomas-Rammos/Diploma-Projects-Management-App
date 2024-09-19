@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    
+    <!-- Set the Character set for the page -->
+    <meta charset="utf-8">
+    
+    <!-- Let the page adapt to client device -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Link to external resource (css, search, etc.) -->
+    <!-- Link to Bootstrap CSS in this case -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Subject List</title>
+</head>
+
+<body>
+
+<div class="container">
+
+	<h3>Subject List</h3>
+	<hr>
+	
+	
+	<table class="table table-bordered table-striped">
+		<thead class="thead-dark">
+			<tr>
+				<th>Title</th>
+				<th>Supervisor</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<!-- Title column -->
+			<tr th:each="tempSubject : ${subjects}">
+				<td>
+					<!-- Anchor tag for the title -->
+					<a th:href="@{/student/moreDetails(subjectId=${tempSubject.id}, supervisorId=${0})}">
+						<span th:text="${tempSubject.title}" />
+					</a>
+				</td>
+				<td>
+					<a th:href="@{/student/moreDetails(subjectId=${tempSubject.id}, supervisorId=${tempSubject.supervisor.getId()})}">
+						<span th:text="${tempSubject.supervisor.getFullName}" />
+					</a>
+				</td>
+				<td>
+					<div th:if="${thesis != null}">
+						<p>You have already a thesis.</p>
+					</div>
+					<div th:unless="${thesis != null}">
+						<a th:href="@{/student/assignToSubject(subjectId=${tempSubject.id}, supervisorId=${tempSubject.supervisor.getId()})}"
+						   class="btn btn-info btn-sm"
+						   onclick="if (!(confirm('Are you sure you want to assign to this subject?'))) return false">
+						   Apply
+						</a>
+					</div>
+				</td>			
+			</tr>
+		</tbody>		
+	</table>
+	<a th:href="@{/student/homepage}" class="btn btn-primary">Return</a>
+	<a th:href="@{/student/applications}" class="btn btn-primary">myApplications</a>
+</div>
+	
+</body>
+</html>

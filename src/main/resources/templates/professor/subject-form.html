@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Professor Form</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <h1 class="my-4">Edit Subject </h1>
+    <form th:action="@{/professor/saveSubject}" th:object"${subject}" method="post">
+    <input type="hidden" id="id" name="id" th:value="${subject.id}" />
+    <input type="hidden" id="supervisor_id" name="supervisor_id" th:value="${subject.supervisor.id}" />
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" class="form-control" id="title" name="title" th:value="${subject.title}" required/>
+        </div>
+        <div class="form-group">
+            <label for="objectives">Objectives:</label>
+            <input type="text" class="form-control" id="objectives" name="objectives" th:value="${subject.objectives}" required/>
+        </div>
+        <div class="form-group">
+        	<label for="totalMonths">Total Months:</label>
+        	<input type="text" class="form-control" id="objectives" name="totalMonths" th:value="${subject.totalMonths}" required/>
+        </div>
+        <div class="form-group mb-2">
+	        <label for="availability">Availability:</label>
+	        <select class="form-control" id="availability" name="availability" required>
+	            <option value="">Select</option>
+	            <option value="true">Available</option>
+	            <option value="false">Not Available</option>
+	        </select>
+	    </div>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a th:href="@{/professor/subjects}" class="btn btn-primary">Return</a>
+    </form>
+</div>
+</body>
+</html>
